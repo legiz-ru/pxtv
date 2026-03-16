@@ -432,6 +432,7 @@
 
     .manual-row {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       align-items: stretch;
     }
@@ -476,7 +477,7 @@
     }
 
     #btn-manual-ok {
-      padding: 0 18px;
+      padding: 10px 18px;
       background: var(--accent);
       color: #fff;
       border: none;
@@ -487,7 +488,7 @@
       cursor: pointer;
       transition: background .2s;
       white-space: nowrap;
-      flex-shrink: 0;
+      flex: 1 0 auto;
     }
 
     #btn-manual-ok:hover { background: #8b6cff; }
@@ -950,6 +951,9 @@
       });
       document.getElementById('manual-ip').addEventListener('keydown', e => {
         if (e.key === 'Enter') document.getElementById('manual-port').focus();
+      });
+      document.getElementById('manual-ip').addEventListener('input', function() {
+        this.value = this.value.replace(/,/g, '.');
       });
       document.getElementById('manual-port').addEventListener('keydown', e => {
         if (e.key === 'Enter') applyManualUrl();
