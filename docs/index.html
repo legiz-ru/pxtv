@@ -889,7 +889,7 @@
         tvBaseUrl = base;
         if (u.pathname === '/Prizrak-BoxTVimport' &&
             u.searchParams.has('v') && u.searchParams.has('t') &&
-            u.searchParams.has('k') && u.searchParams.has('url')) {
+            u.searchParams.has('k')) {
           importUrl = data;
         } else {
           importUrl = null;
@@ -944,14 +944,15 @@
     function confirm() {
       if (!tvBaseUrl) { showStatus('error', '📷 Сначала укажите адрес TV'); return; }
 
+      const content = document.getElementById('content').value.trim();
+      if (!content) { showStatus('error', '❌ Поле не может быть пустым'); return; }
+
       if (importUrl) {
-        const targetUrl = importUrl + '&autosubmit=true';
+        const targetUrl = importUrl + '&autosubmit=true&url=' + encodeURIComponent(content);
         window.location.href = targetUrl;
         return;
       }
 
-      const content = document.getElementById('content').value.trim();
-      if (!content) { showStatus('error', '❌ Поле не может быть пустым'); return; }
       const targetUrl = tvBaseUrl + '/Prizrak-BoxTVimport?url=' + encodeURIComponent(content);
       window.location.href = targetUrl;
     }
