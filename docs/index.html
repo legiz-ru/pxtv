@@ -676,6 +676,7 @@
   <script>
     // ── State ──────────────────────────────────────────────────
     let tvBaseUrl = null;
+    let importUrl = null;
     let videoStream = null;
     let scanTimer = null;
     let scanning = false;
@@ -883,8 +884,16 @@
       scanning = false;
       if (scanTimer) { clearTimeout(scanTimer); scanTimer = null; }
       try {
-        const base = new URL(data).origin;
+        const u = new URL(data);
+        const base = u.origin;
         tvBaseUrl = base;
+        if (u.pathname === '/Prizrak-BoxTVimport' &&
+            u.searchParams.has('v') && u.searchParams.has('t') &&
+            u.searchParams.has('k')) {
+          importUrl = data;
+        } else {
+          importUrl = null;
+        }
         setScanStatus('found', '✅ TV обнаружен: ' + base);
         document.getElementById('tv-url-text').textContent = base;
         document.getElementById('tv-address').classList.add('visible');
@@ -925,6 +934,7 @@
 
     document.getElementById('tv-clear').addEventListener('click', () => {
       tvBaseUrl = null;
+      importUrl = null;
       document.getElementById('tv-address').classList.remove('visible');
       document.getElementById('tv-url-text').textContent = '';
       updateSubmitVisibility();
@@ -932,9 +942,16 @@
 
     // ── Confirm — open URL in browser ─────────────────────────
     function confirm() {
+      if (!tvBaseUrl) { showStatus('error', '📷 Сначала укажите адрес TV'); return; }
+
       const content = document.getElementById('content').value.trim();
       if (!content) { showStatus('error', '❌ Поле не может быть пустым'); return; }
-      if (!tvBaseUrl) { showStatus('error', '📷 Сначала укажите адрес TV'); return; }
+
+      if (importUrl) {
+        const targetUrl = importUrl + '&autosubmit=true&url=' + encodeURIComponent(content);
+        window.location.href = targetUrl;
+        return;
+      }
 
       const targetUrl = tvBaseUrl + '/Prizrak-BoxTVimport?url=' + encodeURIComponent(content);
       window.location.href = targetUrl;
