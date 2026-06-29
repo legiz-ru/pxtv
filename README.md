@@ -19,7 +19,7 @@
 Можно передать ссылку на подписку прямо в URL страницы — она автоматически подставится в поле, инструкции упростятся до одного шага:
 
 ```
-https://legiz-ru.github.io/pxtv?url=https://example.com/my-subscription
+https://tv.prizrak.tv?url=https://example.com/my-subscription
 ```
 
 Удобно для использования из менеджеров паролей, шорткатов или других приложений.
@@ -33,7 +33,7 @@ https://legiz-ru.github.io/pxtv?url=https://example.com/my-subscription
 Готовая страница доступна по адресу:
 
 ```
-https://legiz-ru.github.io/pxtv
+https://tv.prizrak.tv
 ```
 
 Не требует установки. Работает с любого устройства в браузере.
@@ -45,7 +45,7 @@ https://legiz-ru.github.io/pxtv
 Страницы подписки Remnawave поддерживают формат ссылки с параметром `?url=`. Используйте ссылки вида:
 
 ```
-https://legiz-ru.github.io/pxtv?url={{SUBSCRIPTION_LINK}}
+https://tv.prizrak.tv?url={{SUBSCRIPTION_LINK}}
 ```
 
 где `{{SUBSCRIPTION_LINK}}` — ссылка на подписку пользователя. Пользователь откроет страницу с уже подставленной подпиской и сможет передать её на TV в один шаг.
